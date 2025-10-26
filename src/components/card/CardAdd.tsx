@@ -1,9 +1,12 @@
 
 
-interface CardAdd {
+interface ICardAdd {
 	added: boolean;
 }
-function CardAdd({added}: CardAdd) {
+export default function CardAdd({added}: ICardAdd) {
+	const addToOrder = () => {
+		console.log('addToOrder');
+	}
 	return (
 		<div>
 			{added ? (
@@ -16,7 +19,7 @@ function CardAdd({added}: CardAdd) {
 				</>
 
 			) : (
-				<button className='button-add-default'>
+				<button className='button-add-default' onClick={addToOrder}>
 					<img src="/img/addwhite.svg" alt="AddImage"/>
 					<p>Добавить</p>
 				</button>
@@ -24,4 +27,3 @@ function CardAdd({added}: CardAdd) {
 		</div>
 	)
 }
-export default CardAdd;
