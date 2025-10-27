@@ -3,7 +3,8 @@ import CartOrder from "./CartOrder";
 
 export default function Order() {
 
-	const items = [];
+
+	const items = ['1'];
 	return (
 		<div>
 			{items.length > 0 ? (<div className="order-container">
