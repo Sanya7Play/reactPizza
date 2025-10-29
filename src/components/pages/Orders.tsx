@@ -1,13 +1,24 @@
 import CartOrder from "./CartOrder";
+import {useContext} from "react";
+import {AppContext} from "../../App";
+import {useCart} from "../hooks/useCart";
 
 
-export default function Order() {
+export default function Orders() {
 
+	const context = useContext(AppContext);
 
-	const items = ['1'];
+	if (!context) {
+		throw new Error('useAppContext must be used within an AppContextProvider');
+	}
+	const { order, onChangeQty, onRemoveCart } = context;
+
+	const cart = useCart() ?? { totalPrice: 0, countTotal: 0, isEmpty: true };
+	const { totalPrice, countTotal } = cart;
+
 	return (
 		<div>
-			{items.length > 0 ? (<div className="order-container">
+			{order.length > 0 ? (<div className="order-container">
 				<div className="header-order">
 					<div className="order-left">
 						<img src="/img/iconfinder_shopping-cart_2561279%201.png" alt="CartImage"/>
@@ -18,19 +29,18 @@ export default function Order() {
 						<p>Очистить корзину</p>
 					</div>
 				</div>
-				<CartOrder/>
-				<CartOrder/>
-				<CartOrder/>
-				<CartOrder/>
+				{order.map(item => (
+					<CartOrder obj={item} handleChange={onChangeQty} handleRemove={onRemoveCart}/>
+				))}
 				<div className="order-footer">
 					<div className="order-footer-quantity">
 						<div className="order-footer-header">
 							<h1>Всего пицц:</h1>
-							<p> 3 шт.</p>
+							<p> {countTotal} шт.</p>
 						</div>
 						<div className="order-footer-price">
 							<h1>Cумма заказа:</h1>
-							<p>900 ₽</p>
+							<p>{totalPrice} ₽</p>
 						</div>
 					</div>
 					<div className="order-footer-buttons">

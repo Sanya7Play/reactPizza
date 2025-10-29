@@ -1,4 +1,5 @@
 
+
 interface ICardButton {
 	id: string;
 	text: string;
@@ -13,17 +14,20 @@ export let optionsPizza:IOptionsPizza = {dough: '', size: ''};
 function CardButton({text, disabled}:ICardButton) {
 
 	const propsAdd = () => {
-		if(text === 'традиционное' || text === 'тонкое'){
+		if(disabled) return;
+		else if (text === 'традиционное' || text === 'тонкое'){
 			optionsPizza.dough = text;
 		}
 		else{
 			optionsPizza.size = text;
 		}
-		console.log(optionsPizza);
+		console.log(optionsPizza)
 	}
 	return(
 		<div>
 			<button
+				type="button"
+				disabled={disabled}
 				key={text}
 				onClick={propsAdd}
 				className={ disabled ? 'card-button-size-disabled' : 'card-button-size'}>
